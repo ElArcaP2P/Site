@@ -2,6 +2,13 @@
 
 angular.module('elArcaP2P')
   .controller('NavbarCtrl', function ($scope,$mdDialog) {
+
+    function DialogController(scope, $mdDialog) {
+        scope.closeDialog = function() {
+          $mdDialog.hide();
+        }
+      }
+
     $scope.showQue = function(ev){
       var parentEl = angular.element(document.body);
       $mdDialog.show({
@@ -14,14 +21,14 @@ angular.module('elArcaP2P')
            '  </md-content>' +
            '  <div class="md-actions">' +
            '    <md-button ng-click="closeDialog()">' +
-           '      Close Dialog' +
+           '      Cerrar' +
            '    </md-button>' +
            '  </div>' +
            '</md-dialog>',
          locals: {
            //items: $scope.items
          },
-         //controller: DialogController
+         controller: DialogController
       });
     }
 
@@ -37,14 +44,14 @@ angular.module('elArcaP2P')
            '  </md-content>' +
            '  <div class="md-actions">' +
            '    <md-button ng-click="closeDialog()">' +
-           '      Close Dialog' +
+           '      Cerrar' +
            '    </md-button>' +
            '  </div>' +
            '</md-dialog>',
          locals: {
            //items: $scope.items
          },
-         //controller: DialogController
+         controller: DialogController
       });
     }
   });
