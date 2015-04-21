@@ -2,6 +2,10 @@
 
 html {
   font-family: 'Roboto Slab', serif;
+  overflow: hidden;
+  body{
+    overflow: hidden;
+  }
 }
 
 [layout=row] {

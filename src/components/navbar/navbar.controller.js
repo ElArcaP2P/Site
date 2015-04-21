@@ -16,8 +16,8 @@ angular.module('elArcaP2P')
          targetEvent: ev,
          template:
            '<md-dialog flex class="doc" aria-label="List dialog">' +
-           '  <md-content flex >'+
-           '    <iframe scale2parent src="https://docs.google.com/presentation/d/1nUVZIWlCh9eCpMojcH0p8SbLuE90OkYR8lhg1I5kc7s/embed?start=true&loop=true&delayms=10000" frameborder="0" width="480" height="299" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>'+
+           '  <md-content flex>'+
+           '    <iframe scale2parent src="https://docs.google.com/document/d/1CzZuYPrjwHnXC189J3Q9dSkk-NOp0yq2C8dkUM7oVuA/pub?embedded=true"></iframe>' +
            '  </md-content>' +
            '  <div class="md-actions">' +
            '    <md-button ng-click="closeDialog()">' +

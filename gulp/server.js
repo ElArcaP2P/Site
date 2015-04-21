@@ -8,13 +8,16 @@ var util = require('util');
 
 var middleware = require('./proxy');
 
+var gjslint = require('gulp-gjslint'),
+    nodemon = require('gulp-nodemon');
+
 module.exports = function(options) {
 
   function browserSyncInit(baseDir, browser) {
     browser = browser === undefined ? 'default' : browser;
 
     var routes = null;
-    if(baseDir === options.src || (util.isArray(baseDir) && baseDir.indexOf(options.src) !== -1)) {
+    if (baseDir === options.src || (util.isArray(baseDir) && baseDir.indexOf(options.src) !== -1)) {
       routes = {
         '/bower_components': 'bower_components'
       };
@@ -25,7 +28,7 @@ module.exports = function(options) {
       routes: routes
     };
 
-    if(middleware.length > 0) {
+    if (middleware.length > 0) {
       server.middleware = middleware;
     }
 
@@ -37,22 +40,37 @@ module.exports = function(options) {
   }
 
   browserSync.use(browserSyncSpa({
-    selector: '[ng-app]'// Only needed for angular apps
+    selector: '[ng-app]' // Only needed for angular apps
   }));
 
-  gulp.task('serve', ['watch'], function () {
+  gulp.task('lint', function () {
+    gulp.src('../[]/**/*.js')
+      .pipe(jshint())
+  })
+
+  gulp.task('nodemon',function(){
+    nodemon({
+      script: 'servicio/app.js',
+      ext: 'js',
+      env: {
+        'NODE_ENV': 'development'
+      }
+    })
+  })
+
+  gulp.task('serve', ['nodemon','watch'], function() {
     browserSyncInit([options.tmp + '/serve', options.src]);
   });
 
-  gulp.task('serve:dist', ['build'], function () {
+  gulp.task('serve:dist', ['build'], function() {
     browserSyncInit(options.dist);
   });
 
-  gulp.task('serve:e2e', ['inject'], function () {
+  gulp.task('serve:e2e', ['inject'], function() {
     browserSyncInit([options.tmp + '/serve', options.src], []);
   });
 
-  gulp.task('serve:e2e-dist', ['build'], function () {
+  gulp.task('serve:e2e-dist', ['build'], function() {
     browserSyncInit(options.dist, []);
   });
 };
