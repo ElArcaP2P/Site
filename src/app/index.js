@@ -16,18 +16,14 @@ angular.module('elArcaP2P', [
         controller: 'MapCtrl'
       }).state('que', {
         url: '/que',
-        templateUrl: 'app/map/map.html',
+        parent: 'map',
+        templateUrl: 'app/map/empty.html',
         controller: 'QueCtrl'
       }).state('subite', {
         url: '/subite',
-        templateUrl: 'app/map/map.html',
+        parent: 'map',
+        templateUrl: 'app/map/empty.html',
         controller: 'SubiteCtrl'
-      }).state('subite.tipo', {
-        url: '/subite/tipo',
-        templateUrl: 'app/subite/tipo.html'
-      }).state('subite.fecha', {
-        url: '/subite/fecha',
-        templateUrl: 'form-profile.html'
       });
 
     $urlRouterProvider.otherwise('/');

@@ -55,7 +55,7 @@ module.exports = function(options) {
       env: {
         'NODE_ENV': 'development'
       }
-    })
+    });
   })
 
   gulp.task('serve', ['nodemon','watch'], function() {

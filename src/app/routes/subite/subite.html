@@ -1,0 +1,8 @@
+<md-dialog flex aria-label="List dialog">
+  <md-content ng-include="state">
+    <form id="signup-form" ng-submit="processForm()">
+      <!-- our nested state views will be injected here -->
+      <div id="form-views" ng-include="state"></div>
+    </form>
+  </md-content>
+</md-dialog>
