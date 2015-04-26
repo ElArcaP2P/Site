@@ -4,11 +4,9 @@ var gulp = require('gulp');
 var browserSync = require('browser-sync');
 var browserSyncSpa = require('browser-sync-spa');
 
-var util = require('util');
-
-var middleware = require('./proxy');
-
-var gjslint = require('gulp-gjslint'),
+var util = require('util'),
+    middleware = require('./proxy'),
+    gjslint = require('gulp-gjslint'),
     nodemon = require('gulp-nodemon');
 
 module.exports = function(options) {
@@ -51,6 +49,7 @@ module.exports = function(options) {
   gulp.task('nodemon',function(){
     nodemon({
       script: 'servicio/app.js',
+      ignore: ["*"],
       ext: 'js',
       env: {
         'NODE_ENV': 'development'
@@ -58,7 +57,7 @@ module.exports = function(options) {
     });
   })
 
-  gulp.task('serve', ['nodemon','watch'], function() {
+  gulp.task('serve', ['watch'], function() {
     browserSyncInit([options.tmp + '/serve', options.src]);
   });
 

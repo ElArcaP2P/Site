@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('elArcaP2P')
-  .controller('SubiteCtrl', function ($scope,$mdDialog,$http,$location,$templateCache) {
+  .controller('SubiteCtrl', function ($scope,$stateParams,$mdDialog,$http,$location,$templateCache) {
     $http({
       method: 'GET',
       url: 'app/routes/subite/subite.html',
@@ -33,7 +33,7 @@ angular.module('elArcaP2P')
       });
 
       scope.location = {
-        center: new google.maps.LatLng(-33, 151)
+        center: new google.maps.LatLng($stateParams.lat || -33,$stateParams.lng || 151)
       };
 
       var geocoder = new google.maps.Geocoder();
@@ -60,6 +60,22 @@ angular.module('elArcaP2P')
             }
           });
         }
+      }
+      if($stateParams.lat){
+        var location = {
+          lat: parseFloat($stateParams.lat),
+          lng: parseFloat($stateParams.lng)
+        };
+        geocoder.geocode({
+          'latLng': location
+        }, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            scope.form.lugar = results[0].formatted_address;
+            scope.$apply('form.lugar');
+          } else {
+            //alert("Geocode was not successful for the following reason: " + status);
+          }
+        });
       }
 
       scope.$on('geocomplete:result',updateResult());

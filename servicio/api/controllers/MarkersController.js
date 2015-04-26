@@ -14,5 +14,10 @@ module.exports = {
 			response.features = markers;
 			res.send(response);
 		});
+	},
+	remove: function(req,res){
+		Marker.destroy(req.param('id')).exec(function deleteCB(err){
+  		console.log('The record has been deleted');
+  	});
 	}
 };

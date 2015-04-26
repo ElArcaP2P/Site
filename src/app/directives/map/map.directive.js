@@ -3,10 +3,15 @@ angular.module('elArcaP2P')
   return {
     restrict: 'A',
     scope: {
-      map: '='
+      map: '=',
+      events: '='
     },
     link: function (scope, element, attrs) {
-      var map = L.map(element.attr('id'));
+      var map = L.map(element.attr('id')),
+          events = scope.events || {};
+      angular.forEach(events,function(callback,event){
+        map.on(event,callback);
+      });
       scope.map = map;
     }
   };

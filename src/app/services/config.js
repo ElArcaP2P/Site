@@ -1,1 +1,1 @@
-var SERVICE_URL = '/' || '/';
+var SERVICE_URL = 'http://localhost:1337/' || '/';

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('elArcaP2P')
-  .controller('MapCtrl', function($scope, Srv) {
+  .controller('MapCtrl', function($scope, $state, Srv) {
     var markers,
         geoJson,
         map = false,
@@ -20,20 +20,53 @@ angular.module('elArcaP2P')
       if(!map)
         return;
       Srv.getMarkers().success(function(data, status) {
+        var markers = L.markerClusterGroup();
         geoJson = L.geoJson(data, {
           style: function(feature) {
             return {
               color: feature.properties.color
             };
+          },
+          onEachFeature: function(feature){
+            var marker = L.marker(feature.geometry.coordinates.reverse()).addTo(markers);
+            marker.bindPopup(feature.properties.nombre);
           }
         });
-        var markers = L.markerClusterGroup();
-        markers.addLayers(geoJson.getLayers());
         map.addLayer(layers.Comic);
         map.addLayer(markers);
         map.addControl(new L.Control.Layers(layers, {}));
         $scope.map.fitBounds(markers.getBounds());
       });
       $scope.$watch('map');
-    })
+    });
+
+    var clickMarker = false;
+
+    var click = function(ev){
+      if(clickMarker != false){
+        $scope.map.removeLayer(clickMarker);
+      }
+      clickMarker= L.marker(ev.latlng).addTo($scope.map);
+
+      var link = $('<button class="md-raised md-primary md-button md-default-theme" tabindex="0">¡Propone un destino!</button>').click(function() {
+        $state.go('subite',{
+          lat: ev.latlng.lat,
+          lng: ev.latlng.lng
+        });
+      })[0];
+
+      clickMarker.bindPopup(link).openPopup();
+    }
+
+    function popupclose(e) {
+      if(clickMarker != false && e.popup == clickMarker.getPopup()){
+        $scope.map.removeLayer(clickMarker);
+        clickMarker = false;
+      }
+    };
+
+    $scope.evMap = {
+      click: click,
+      popupclose: popupclose
+    };
   });
