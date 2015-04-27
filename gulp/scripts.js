@@ -12,7 +12,7 @@ module.exports = function(options) {
     return gulp.src([options.src + '/config.js'])
     .pipe(preprocess({
       context: {
-        SERVICE_URL: argv.srv || 'http://localhost:1337/'
+        SERVICE_URL: argv.srv || '/'
       }
     }))
     .pipe(gulp.dest(options.src + '/app/services/'));
