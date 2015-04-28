@@ -66,6 +66,7 @@ angular.module('elArcaP2P')
           lat: parseFloat($stateParams.lat),
           lng: parseFloat($stateParams.lng)
         };
+        scope.form.position = [parseFloat($stateParams.lng),parseFloat($stateParams.lat)];
         geocoder.geocode({
           'latLng': location
         }, function(results, status) {
