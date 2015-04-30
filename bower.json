@@ -14,7 +14,8 @@
     "fontawesome": "~4.3.0",
     "geocomplete": "~1.6.5",
     "leaflet.markercluster": "https://github.com/ElArcaP2P/Leaflet.markercluster.git#master",
-    "leaflet-plugins": "~1.3.3"
+    "leaflet-plugins": "~1.3.3",
+    "Leaflet.awesome-markers": "~2.0.2"
   },
   "devDependencies": {
     "angular-mocks": "~1.3.4"
