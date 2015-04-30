@@ -26,8 +26,8 @@ angular.module('elArcaP2P', [
         url: '/',
         templateUrl: 'app/map/map.html',
         controller: 'MapCtrl'
-      }).state('que', {
-        url: 'que',
+      }).state('acerca_de', {
+        url: 'acerca_de',
         parent: 'map',
         templateUrl: 'app/map/empty.html',
         controller: 'QueCtrl'

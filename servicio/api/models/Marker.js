@@ -8,7 +8,9 @@
 module.exports = {
 
   attributes: {
-
+    visible: {
+      type: 'boolean',
+      defaultsTo: true
+    }
   }
 };
-

@@ -1,10 +1,4 @@
-<md-dialog flex class="doc" aria-label="List dialog">
-  <md-content flex>
-    <iframe scale2parent src="https://docs.google.com/presentation/d/1nUVZIWlCh9eCpMojcH0p8SbLuE90OkYR8lhg1I5kc7s/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+<md-dialog ng-class="{'md-dialog-fullsize': fullScreen}" aria-label="List dialog">
+  <md-content ng-include="state">
   </md-content>
-  <div class="md-actions">
-    <md-button ng-click="closeDialog()">
-      Cerrar
-    </md-button>
-  </div>
 </md-dialog>

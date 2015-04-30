@@ -10,14 +10,27 @@ module.exports = {
 		var response = {
 			type: "FeatureCollection"
 		};
-		Marker.find().exec(function(err,markers){
+		Marker.find({
+			visible: true
+		}).exec(function(err,markers){
 			response.features = markers;
 			res.send(response);
 		});
 	},
 	remove: function(req,res){
-		Marker.destroy(req.param('id')).exec(function deleteCB(err){
-  		console.log('The record has been deleted');
+		Marker.update({
+			id: req.param('id')
+		},{visible: false}).exec(function (err){
+  		if(err)
+				return res.serverError(err);
+			res.send();
+  	});
+	},
+	allVisible: function(req,res){
+		Marker.update({},{visible: true}).exec(function (err){
+  		if(err)
+				return res.serverError(err);
+			res.send();
   	});
 	}
 };

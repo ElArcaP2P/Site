@@ -13,6 +13,9 @@ angular.module('elArcaP2P')
     });
 
     var ModalController = function(scope, $mdDialog, Srv){
+      $scope.$on('$stateChangeStart',function(){
+        $mdDialog.hide();
+      })
       scope.closeDialog = function() {
         $mdDialog.hide();
         $location.path('/');

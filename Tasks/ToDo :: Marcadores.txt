@@ -1,0 +1,12 @@
+Gente:
+	Fecha
+	Hospedaje
+	Ser Parte:
+		Creativamente
+		Economicamente
+		Logisticamente
+Media:
+	Video
+	Imagen
+	Texto
+
