@@ -7,7 +7,8 @@ angular.module('elArcaP2P', [
     'ngSanitize',
     'ngResource',
     'ui.router',
-    'ngMaterial'
+    'ngMaterial',
+    'ngMdIcons'
   ])
   .run(['$rootScope', '$location', '$window', function($rootScope, $location, $window) {
     $rootScope
@@ -40,5 +41,7 @@ angular.module('elArcaP2P', [
 
     $urlRouterProvider.otherwise('/');
 
-    $mdThemingProvider.theme('default');
+  $mdThemingProvider.theme('default')
+    .primaryPalette('blue')
+    .accentPalette('lime');
   });

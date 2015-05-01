@@ -1,5 +1,10 @@
-#navbar{
-  .md-button{
-    text-transform: none;
+#navbar {
+  .menu{
+    button{
+      margin-right: 5px;
+      &:last-child{
+        margin-right: 0;
+      }
+    }
   }
 }

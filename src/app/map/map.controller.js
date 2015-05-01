@@ -69,7 +69,7 @@ angular.module('elArcaP2P')
             var icon = feature.properties.tipo;
             if (feature.properties.subtipo)
               icon += '_' + feature.properties.subtipo
-            console.log(icon);
+            //console.log(icon);
             var marker = L.marker(feature.geometry.coordinates.reverse(), {
               icon: icons[icon]
             }).addTo(markers);
