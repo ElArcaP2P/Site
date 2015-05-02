@@ -2,8 +2,22 @@
   width: 100%;
   height: 150px;
 }
+.lugar{
+  md-input-container{
+    padding-bottom: 5px;
+  }
+  .map{
+    margin-bottom: 26px;
+  }
+}
+#donacion{
+  display: none;
+}
 #lugarCont{
   padding-bottom: 26px;
+}
+.gracias{
+  text-align: center;
 }
 /* form styling */
 #form-container {

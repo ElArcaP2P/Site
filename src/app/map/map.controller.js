@@ -9,7 +9,7 @@ angular.module('elArcaP2P')
         'Comic': L.tileLayer('http://api.tiles.mapbox.com/v4/{mapid}/{z}/{x}/{y}.{format}?access_token={access_tocken}', {
           attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
           access_tocken: 'pk.eyJ1IjoibmFjYWx0IiwiYSI6InA1MXJqaDAifQ.-ijEh3Iqt1y34rIr5lbPOg',
-          mapid: 'mapbox.comic',
+          mapid: 'nacalt.fc0fff05',
           format: 'png32'
         }),
         'Hibrida': new L.Google('HYBRID'),
@@ -69,7 +69,7 @@ angular.module('elArcaP2P')
             var icon = feature.properties.tipo;
             if (feature.properties.subtipo)
               icon += '_' + feature.properties.subtipo
-            //console.log(icon);
+              //console.log(icon);
             var marker = L.marker(feature.geometry.coordinates.reverse(), {
               icon: icons[icon]
             }).addTo(markers);
@@ -113,4 +113,5 @@ angular.module('elArcaP2P')
       click: click,
       popupclose: popupclose
     };
+
   });

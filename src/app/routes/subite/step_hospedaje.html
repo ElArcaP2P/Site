@@ -1,6 +1,6 @@
 <div layout layout-sm="column">
   <md-input-container flex>
-    <label>Nombre</label>
+    <label>Tu nombre</label>
     <input ng-model="form.nombre">
   </md-input-container>
   <md-input-container flex>
@@ -15,19 +15,17 @@
   </md-input-container>
 </div>
 <div layout="column">
-  <md-input-container flex>
-    <label>¿Dónde?</label>
-    <input ng-model="form.lugar" geocomplete>
-  </md-input-container>
-  <div id="lugar" class="map" location config="location">
-
-  </div>
-</div>
-<div layout="column">
   <md-input-container>
-   <label>¿Algo que quieras agregar?</label>
+   <label>Comentarios</label>
    <textarea ng-model="form.mensage"></textarea>
  </md-input-container>
+</div>
+<div class="lugar" layout="column">
+  <md-input-container flex>
+    <label>Lugar</label>
+    <input ng-model="form.lugar" geocomplete>
+  </md-input-container>
+  <div id="lugar" class="map" location config="location"></div>
 </div>
 <div ng-if="false" layout="row" id="lugarCont">
   <md-content id="lugar" flex location>

@@ -1,6 +1,6 @@
 <div layout layout-sm="column">
   <md-input-container flex>
-    <label>Nombre</label>
+    <label>Tu nombre</label>
     <input ng-model="form.nombre">
   </md-input-container>
   <md-input-container flex>
@@ -15,24 +15,23 @@
   </md-input-container>
 </div>
 <div layout="column">
+  <md-input-container>
+    <label>Comentarios</label>
+    <textarea ng-model="form.mensage"></textarea>
+  </md-input-container>
+</div>
+<div class="lugar" layout="column">
   <md-input-container flex>
-    <label>¿Dónde?</label>
+    <label>Lugar</label>
     <input ng-model="form.lugar" geocomplete>
   </md-input-container>
-  <div id="lugar" class="map" location config="location">
-
-  </div>
-</div>
-<div layout="column">
-  <md-input-container>
-   <label>¿Algo que quieras agregar?</label>
-   <textarea ng-model="form.mensage"></textarea>
- </md-input-container>
-</div>
-<div ng-if="false" layout="row" id="lugarCont">
-  <md-content id="lugar" flex location>
-  </md-content>
+  <div id="lugar" class="map" location config="location"></div>
 </div>
 <div layout="row" layout-align="end end">
-  <md-button ng-click="enviar()" class="md-raised md-primary">Enviar</md-button>
+  <md-button ng-click="donar()" class="md-raised md-primary">Continuar</md-button>
 </div>
+<form id="donacion" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+  <input type="hidden" name="cmd" value="_s-xclick">
+  <input type="hidden" name="hosted_button_id" value="VAKA9R3MZ5PR4">
+  <input type="hidden" name="lc" value="ES">
+</form>

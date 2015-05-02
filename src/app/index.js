@@ -1,5 +1,5 @@
 'use strict';
-
+var SERVICE_URL = 'http://192.168.0.10:1337/';
 angular.module('elArcaP2P', [
     'ngAnimate',
     'ngCookies',
@@ -21,7 +21,7 @@ angular.module('elArcaP2P', [
           });
         })
   }])
-  .config(function($stateProvider, $urlRouterProvider,$mdThemingProvider) {
+  .config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
     $stateProvider
       .state('map', {
         url: '/',
@@ -41,7 +41,7 @@ angular.module('elArcaP2P', [
 
     $urlRouterProvider.otherwise('/');
 
-  $mdThemingProvider.theme('default')
-    .primaryPalette('blue')
-    .accentPalette('lime');
+    $mdThemingProvider.theme('default')
+      .primaryPalette('blue-grey')
+      .accentPalette('red');
   });

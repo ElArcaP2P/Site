@@ -14,6 +14,7 @@ angular.module('elArcaP2P')
     });
 
     var stateMap = {
+      base: 'app/routes/que/que_base.html',
       nosotros: 'app/routes/que/nosotros/nosotros.html',
       presentacion: 'app/routes/que/presentacion/presentacion.html'
     };
@@ -22,14 +23,14 @@ angular.module('elArcaP2P')
       $scope.$on('$stateChangeStart',function(){
         $mdDialog.hide();
       })
-      scope.state = 'app/routes/que/que_base.html';
+      scope.state = stateMap.base;
       scope.fullScreen = false;
       scope.closeDialog = function() {
         $mdDialog.hide();
       }
-      scope.goto = function(state){
+      scope.goto = function(state,fullsize){
         scope.state = stateMap[state];
-        scope.fullScreen = true;
+        scope.fullScreen = fullsize || false;
       };
     }
 
