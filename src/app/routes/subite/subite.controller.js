@@ -1,19 +1,6 @@
 'use strict';
-angular.module('elArcaP2P').factory('GeoLoc', function() {
-  var self = {
-    lat: -34.919787,
-    lng: -57.933096400000004
-  };
-  if ("geolocation" in navigator) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      self.lat = position.coords.latitude;
-      self.lng = position.coords.longitude;
-    });
-  }
-  return self;
-})
 angular.module('elArcaP2P')
-  .controller('SubiteCtrl', function($scope, $stateParams, $mdToast, $mdDialog, $http, $location, $templateCache, GeoLoc, Srv) {
+  .controller('SubiteCtrl', function($scope, $stateParams, $mdToast, $mdDialog, $http, $location, $templateCache, GeoLocation, Srv) {
     $http({
       method: 'GET',
       url: 'app/routes/subite/subite.html',
@@ -35,7 +22,7 @@ angular.module('elArcaP2P')
       scope.form = {
         tipo: 'tipo',
         subtipo: false,
-        position: [parseFloat($stateParams.lng || GeoLoc.lng),parseFloat($stateParams.lat || GeoLoc.lat)]
+        position: [parseFloat($stateParams.lng || GeoLocation.lng),parseFloat($stateParams.lat || GeoLocation.lat)]
       };
 
       scope.$watch('form.tipo', function(val) {

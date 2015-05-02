@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('elArcaP2P')
-  .controller('MapCtrl', function($scope, $state, Srv) {
+  .controller('MapCtrl', function($scope, $state, GeoLocation, Srv) {
     var markers,
       geoJson,
       map = false,

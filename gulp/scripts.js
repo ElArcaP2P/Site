@@ -15,10 +15,10 @@ module.exports = function(options) {
         SERVICE_URL: argv.srv || '/'
       }
     }))
-    .pipe(gulp.dest(options.src + '/app/services/'));
+    .pipe(gulp.dest(options.src + '/services/'));
   })
   gulp.task('scripts', ['preprocess'],function () {
-    return gulp.src(options.src + '/{app,components,directives}/**/*.js')
+    return gulp.src(options.src + '/{app,components,directives,services}/**/*.js')
       .pipe($.jshint())
       .pipe($.jshint.reporter('jshint-stylish'))
       .pipe(browserSync.reload({ stream: true }))

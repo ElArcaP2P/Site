@@ -6,8 +6,8 @@
     "test": "gulp test"
   },
   "devDependencies": {
-    "browser-sync": "~2.1.4",
-    "browser-sync-spa": "~1.0.1",
+    "browser-sync": "~2.6.8",
+    "browser-sync-spa": "~1.0.2",
     "chalk": "~0.5.1",
     "concat-stream": "~1.4.7",
     "del": "~1.1.1",
