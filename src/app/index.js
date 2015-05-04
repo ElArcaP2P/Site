@@ -37,6 +37,12 @@ angular.module('elArcaP2P', [
         parent: 'map',
         templateUrl: 'app/map/empty.html',
         controller: 'SubiteCtrl'
+      })
+      .state('musica', {
+        url: 'musica',
+        parent: 'map',
+        templateUrl: 'app/map/empty.html',
+        controller: 'ReproductorCtrl'
       });
 
     $urlRouterProvider.otherwise('/');
