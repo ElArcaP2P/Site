@@ -32,6 +32,11 @@ angular.module('elArcaP2P', [
         parent: 'map',
         templateUrl: 'app/map/empty.html',
         controller: 'QueCtrl'
+      }).state('acerca_de_algo', {
+        url: 'acerca_de/:algo',
+        parent: 'map',
+        templateUrl: 'app/map/empty.html',
+        controller: 'QueCtrl'
       }).state('subite', {
         url: 'subite/:lat,:lng',
         parent: 'map',

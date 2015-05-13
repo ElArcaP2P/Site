@@ -1,7 +1,12 @@
 'use strict';
 
 angular.module('elArcaP2P')
-  .controller('MapCtrl', function($scope, $state, GeoLocation, Srv) {
+  .controller('MapCtrl', function($scope, $state, GeoLocation, Srv, State) {
+    if(!State.presentado){
+      $state.go('acerca_de_algo',{
+        algo: 'presentacion'
+      });
+    }
     var markers,
       geoJson,
       map = false,

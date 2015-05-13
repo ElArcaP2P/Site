@@ -1,1 +1,0 @@
-var SERVICE_URL = '/' || '/';

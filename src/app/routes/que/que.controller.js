@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('elArcaP2P')
-  .controller('QueCtrl', function ($scope,$mdDialog,$http,$location,$templateCache) {
+  .controller('QueCtrl', function ($scope,$stateParams,$mdDialog,$http,$location,$templateCache) {
 
     $http({
       method: 'GET',
@@ -14,23 +14,37 @@ angular.module('elArcaP2P')
     });
 
     var stateMap = {
-      base: 'app/routes/que/que_base.html',
-      nosotros: 'app/routes/que/nosotros/nosotros.html',
-      presentacion: 'app/routes/que/presentacion/presentacion.html'
+      base: {
+        view: 'app/routes/que/que_base.html',
+        fullscreen: false,
+        controls: false
+      },
+      nosotros: {
+        view: 'app/routes/que/nosotros/nosotros.html',
+        fullscreen: false,
+        controls: true
+      },
+      presentacion: {
+        view: 'app/routes/que/presentacion/presentacion.html',
+        fullscreen: true,
+        controls: true
+      }
     };
 
     var ModalController = function(scope, $mdDialog){
       $scope.$on('$stateChangeStart',function(){
         $mdDialog.hide();
       })
-      scope.state = stateMap.base;
-      scope.fullScreen = false;
+      if(typeof $stateParams.algo == 'string'){
+        scope.state = stateMap[$stateParams.algo] || stateMap.base;
+      }else{
+        scope.state = stateMap.base;
+      }
       scope.closeDialog = function() {
         $mdDialog.hide();
       }
       scope.goto = function(state,fullsize){
         scope.state = stateMap[state];
-        scope.fullScreen = fullsize || false;
       };
     }
 

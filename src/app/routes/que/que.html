@@ -1,4 +1,9 @@
-<md-dialog ng-class="{'md-dialog-fullsize': fullScreen}" aria-label="List dialog">
-  <md-content ng-include="state">
-  </md-content>
+<md-dialog ng-class="{'md-dialog-fullsize': state.fullscreen}" aria-label="List dialog">
+  <md-dialog-content ng-include="state.view">
+  </md-dialog-content>
+  <div class="md-actions" layout="row" ng-show="state.controls">
+    <md-button ng-click="closeDialog()" class="md-primary">
+      Cerrar
+    </md-button>
+  </div>
 </md-dialog>
