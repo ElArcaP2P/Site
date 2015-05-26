@@ -1,5 +1,4 @@
 'use strict';
-var SERVICE_URL = 'http://192.168.0.10:1337/';
 angular.module('elArcaP2P', [
     'ngAnimate',
     'ngCookies',
@@ -24,20 +23,28 @@ angular.module('elArcaP2P', [
   .config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
     $stateProvider
       .state('map', {
-        url: '/',
+        url: '/mapa/',
         templateUrl: 'app/map/map.html',
         controller: 'MapCtrl'
-      }).state('acerca_de', {
+      })
+      .state('introduccion', {
+        url: '/introduccion/',
+        templateUrl: 'app/intro/intro.html',
+        controller: 'IntroCtrl'
+      })
+      .state('acerca_de', {
         url: 'acerca_de',
         parent: 'map',
         templateUrl: 'app/map/empty.html',
         controller: 'QueCtrl'
-      }).state('acerca_de_algo', {
+      })
+      .state('acerca_de_algo', {
         url: 'acerca_de/:algo',
         parent: 'map',
         templateUrl: 'app/map/empty.html',
         controller: 'QueCtrl'
-      }).state('subite', {
+      })
+      .state('subite', {
         url: 'subite/:lat,:lng',
         parent: 'map',
         templateUrl: 'app/map/empty.html',
@@ -50,9 +57,9 @@ angular.module('elArcaP2P', [
         controller: 'ReproductorCtrl'
       });
 
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/introduccion/');
 
     $mdThemingProvider.theme('default')
-      .primaryPalette('blue-grey')
-      .accentPalette('red');
+      .primaryPalette('grey')
+      .accentPalette('blue-grey');
   });

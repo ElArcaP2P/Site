@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('elArcaP2P')
-  .controller('QueCtrl', function ($scope,$stateParams,$mdDialog,$http,$location,$templateCache) {
+  .controller('QueCtrl', function($scope, $state, $stateParams, $mdDialog, $http, $location, $templateCache) {
 
     $http({
       method: 'GET',
@@ -31,32 +31,39 @@ angular.module('elArcaP2P')
       }
     };
 
-    var ModalController = function(scope, $mdDialog){
-      $scope.$on('$stateChangeStart',function(){
+    var redirect = true;
+
+    var ModalController = function(scope, $mdDialog) {
+      $scope.$on('$stateChangeStart', function() {
         $mdDialog.hide();
       })
-      if(typeof $stateParams.algo == 'string'){
+      if (typeof $stateParams.algo == 'string') {
         scope.state = stateMap[$stateParams.algo] || stateMap.base;
-      }else{
+      } else {
         scope.state = stateMap.base;
       }
       scope.closeDialog = function() {
         $mdDialog.hide();
       }
-      scope.goto = function(state,fullsize){
+      scope.goto = function(state, fullsize) {
         scope.state = stateMap[state];
+      };
+      scope.intro = function() {
+        redirect = false;
+        $state.go('introduccion');
       };
     }
 
-    function showModal(html){
+    function showModal(html) {
       var parentEl = angular.element(document.body);
       $mdDialog.show({
-         parent: parentEl,
-         //targetEvent: ev,
-         template: html,
-         controller: ModalController
+        parent: parentEl,
+        //targetEvent: ev,
+        template: html,
+        controller: ModalController
       }).finally(function() {
-        $location.path('/');
+        if(redirect)
+          $state.go('map');
       });
     }
 

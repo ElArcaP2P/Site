@@ -1,4 +1,12 @@
-<div id="map" map="map" events="evMap">
-
+<div layout="row" flex>
+  <div layout="column" flex id="content">
+    <header ng-include="'components/navbar/navbar.html'"></header>
+    <md-content flex>
+      <div id="map" map="map" events="evMap">
+      </div>
+      <ui-view></ui-view>
+    </md-content>
+  </div>
 </div>
-<ui-view></ui-view>
+
+<boton-reproductor></boton-reproductor>

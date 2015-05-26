@@ -1,13 +1,24 @@
-angular.module('elArcaP2P').factory('GeoLocation', function() {
+angular.module('elArcaP2P').factory('GeoLocation', function($q) {
   var self = {
-    lat: -34.919787,
-    lng: -57.933096400000004
+    location: {
+      lat: false,
+      lng: false
+    }
   };
-  if ("geolocation" in navigator) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      self.lat = position.coords.latitude;
-      self.lng = position.coords.longitude;
-    });
+  self.getLocation = function(){
+    var deferred = $q.defer();
+    var location = false;
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        self.location.lat = position.coords.latitude;
+        self.location.lng = position.coords.longitude;
+        deferred.resolve(self.location);
+      },function(error){
+        console.error(arguments);
+        deferred.reject('Greeting ' + name + ' is not allowed.');
+      });
+    }
+    return deferred.promise;
   }
   return self;
 });

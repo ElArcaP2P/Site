@@ -1,10 +1,10 @@
 angular.module('elArcaP2P')
   .factory('Srv', function($http) {
 
-  self.sendForm = function(formPath,data){
+  self.post = function(path,data){
     return $http({
       method: 'POST',
-      url: SERVICE_URL+'forms/'+formPath,
+      url: SERVICE_URL+path,
       data: data
     });
   };
@@ -12,7 +12,15 @@ angular.module('elArcaP2P')
   self.getMarkers = function(data){
     return $http({
       method: 'GET',
-      url: SERVICE_URL+'markers',
+      url: SERVICE_URL+'marcas',
+      data: data
+    });
+  };
+
+  self.getRutas = function(data){
+    return $http({
+      method: 'GET',
+      url: '/rutas/1.geojson',
       data: data
     });
   };

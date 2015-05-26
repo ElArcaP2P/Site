@@ -1,12 +1,7 @@
 'use strict';
 
 angular.module('elArcaP2P')
-  .controller('MapCtrl', function($scope, $state, GeoLocation, Srv, State) {
-    if(!State.presentado){
-      $state.go('acerca_de_algo',{
-        algo: 'presentacion'
-      });
-    }
+  .controller('MapCtrl', function($scope, $state, RutasSrv, GeoLocation, Srv, State) {
     var markers,
       geoJson,
       map = false,
@@ -47,6 +42,11 @@ angular.module('elArcaP2P')
         prefix: 'fa',
         markerColor: 'red'
       }),
+      talleres_nacho: L.AwesomeMarkers.icon({
+        icon: 'fa-comment',
+        prefix: 'fa',
+        markerColor: 'cadetblue'
+      }),
       media_texto: L.AwesomeMarkers.icon({
         icon: 'fa-comment',
         prefix: 'fa',
@@ -64,28 +64,38 @@ angular.module('elArcaP2P')
       })
     };
 
-    $scope.$watch('map', function(map) {
-      if (!map)
-        return;
+    function initMap(map) {
+      map.addLayer(layers.Comic);
+      map.addControl(new L.Control.Layers(layers, {}));
       Srv.getMarkers().success(function(data, status) {
         var markers = L.markerClusterGroup();
         geoJson = L.geoJson(data, {
           onEachFeature: function(feature) {
             var icon = feature.properties.tipo;
             if (feature.properties.subtipo)
-              icon += '_' + feature.properties.subtipo
-              //console.log(icon);
+              icon += '_' + feature.properties.subtipo;
+
             var marker = L.marker(feature.geometry.coordinates.reverse(), {
               icon: icons[icon]
             }).addTo(markers);
-            marker.bindPopup(feature.properties.nombre);
+
+            if (feature.properties.nombre || false) {
+              marker.bindPopup(feature.properties.nombre);
+            };
           }
         });
-        map.addLayer(layers.Comic);
         map.addLayer(markers);
-        map.addControl(new L.Control.Layers(layers, {}));
         $scope.map.fitBounds(markers.getBounds());
       });
+      RutasSrv.getLayer().then(function(data, status) {
+        map.addLayer(data);
+      });
+    }
+
+    $scope.$watch('map', function(map) {
+      if (!map)
+        return;
+      initMap(map);
       $scope.$watch('map');
     });
 

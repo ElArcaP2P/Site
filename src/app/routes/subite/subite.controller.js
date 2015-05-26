@@ -1,6 +1,6 @@
 'use strict';
 angular.module('elArcaP2P')
-  .controller('SubiteCtrl', function($scope, $stateParams, $mdToast, $mdDialog, $http, $location, $templateCache, GeoLocation, Srv) {
+  .controller('SubiteCtrl', function($scope, $state, $stateParams, $mdToast, $mdDialog, $http, $location, $templateCache, GeoLocation, Srv) {
     $http({
       method: 'GET',
       url: 'app/routes/subite/subite.html',
@@ -11,35 +11,68 @@ angular.module('elArcaP2P')
 
     });
 
+    $scope.$on('$stateChangeSuccess', function() {
+
+    });
+
     var ModalController = function(scope, $mdDialog) {
+      scope.state = 'form';
       $scope.$on('$stateChangeStart', function() {
         $mdDialog.hide();
       });
-      scope.closeDialog = function() {
-        $mdDialog.hide();
-        $location.path('/');
+      scope.init = function(){
+        FB.XFBML.parse();
       }
+      scope.closeDialog = function(ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        $mdDialog.hide();
+      }
+
+      var geocoder = new google.maps.Geocoder();
+
+      var position = false;
+      if ($stateParams.lng) {
+        position = [parseFloat($stateParams.lng), parseFloat($stateParams.lat)];
+        geocoder.geocode({
+          'latLng': {
+            lng: position[0],
+            lat: position[1]
+          }
+        }, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            scope.form.lugar = results[0].formatted_address;
+            scope.$apply('form.lugar');
+          } else {
+            //alert("Geocode was not successful for the following reason: " + status);
+          }
+        });
+      }
+
       scope.form = {
-        tipo: 'tipo',
-        subtipo: false,
-        position: [parseFloat($stateParams.lng || GeoLocation.lng),parseFloat($stateParams.lat || GeoLocation.lat)]
+        position: position
       };
 
-      scope.$watch('form.tipo', function(val) {
-        scope.state = 'app/routes/subite/step_' + val + '.html';
-      });
-
-      scope.$watch('form.subtipo', function(val) {
-        if (!val)
-          return;
-        scope.state = 'app/routes/subite/step_col_' + val + '.html';
-      });
+      scope.getLocation = function() {
+        GeoLocation.getLocation().then(function(position) {
+          scope.form.position = position;
+          scope.location.center = position;
+          geocoder.geocode({
+            'latLng': position
+          }, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+              scope.form.lugar = results[0].formatted_address;
+              scope.$apply('form.lugar');
+            } else {
+              //alert("Geocode was not successful for the following reason: " + status);
+            }
+          });
+        })
+      }
 
       scope.location = {
         center: new google.maps.LatLng(scope.form.position[1], scope.form.position[0])
       };
-
-      var geocoder = new google.maps.Geocoder();
 
       function updateResult() {
         return function(event, position) {
@@ -65,36 +98,22 @@ angular.module('elArcaP2P')
         }
       }
 
-      geocoder.geocode({
-        'latLng': {
-          lng: scope.form.position[0],
-          lat: scope.form.position[1]
-        }
-      }, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-          scope.form.lugar = results[0].formatted_address;
-          scope.$apply('form.lugar');
-        } else {
-          //alert("Geocode was not successful for the following reason: " + status);
-        }
-      });
-
       scope.$on('geocomplete:result', updateResult());
       scope.$on('location:position', updateLocation(scope));
 
       scope.loading = false;
       scope.enviar = function() {
-        scope.loading = true;
-        Srv.sendForm('subite', scope.form).then(function() {
-          scope.loading = false;
+        scope.state = 'enviando';
+        Srv.post('subite', scope.form).then(function() {
+          scope.state = 'redes';
         });
         scope.state = 'app/routes/subite/step_gracias.html';
       };
-      scope.donar = function() {
-        scope.enviar()
-        $('#donacion').submit();
+      scope.gracias = function(){
+        scope.state = 'gracias';
       }
     }
+
 
     function showModal(html) {
       var parentEl = angular.element(document.body);
@@ -104,7 +123,7 @@ angular.module('elArcaP2P')
         template: html,
         controller: ModalController
       }).finally(function() {
-        $location.path('/');
+        $state.go('map');
       });
     }
 

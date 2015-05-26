@@ -1,12 +1,54 @@
 /**
- * SumateController
+ * Forms/subiteController
  *
- * @description :: Server-side logic for managing sumates
+ * @description :: Server-side logic for managing forms/subites
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 
+var mandrill = require('mandrill-api/mandrill'),
+  validator = require('validator'),
+  mandrill_client = new mandrill.Mandrill('kVE4CFB1FPaZai__bOKjXA');
+
 module.exports = {
-	index: function (req,res){
-		 var a = "f";
-	}
+  index: function(req, res) {
+    var params = req.allParams(),
+      contacto = {};
+
+    if (params.position != false) {
+      contacto.geometry = {
+        type: 'Point',
+        coordinates: params.position
+      };
+      contacto.type = 'Feature';
+    }
+
+    delete params.position;
+    contacto.properties = params;
+
+
+    Contacto.create(contacto).exec(function createCB(err, created) {
+      res.send();
+      var message = {
+        "text": JSON.stringify(created),
+        "subject": "Contacto",
+        "from_email": (validator.isEmail(created.properties.email))?created.properties.email:'anonimo@cualquiera.ass',
+        "from_name": created.properties.nombre,
+        "to": [{
+          "email": "hola@elarcap2p.com",
+          "name": "El Arcap2p",
+          "type": "to"
+        }]
+      };
+      mandrill_client.messages.send({
+        "message": message,
+        "async": false
+      });
+    });
+  },
+
+  all: function(req, res) {
+    Contacto.find({}).exec(function createCB(err, contactos) {
+      res.send(contactos);
+    });
+  }
 };

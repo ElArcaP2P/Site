@@ -1,0 +1,7 @@
+#btn-player{
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  -webkit-transition: bottom 2s, top 2s, left 2s, right 2s;
+  transition: bottom 2s, top 2s, left 2s, right 2s;
+}

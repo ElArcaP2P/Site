@@ -1,5 +1,52 @@
-<md-dialog class="md-dialog-fullsize" aria-label="Reproductor de Musica">
-  <md-content>
-    <iframe scale2parent width="100%" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/59023773&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>
-  </md-content>
+<md-dialog aria-label="Reproductor" id="reproductor">
+  <md-button ng-show="playlist != false" ng-click="closeDialog()" aria-label="Close" class="md-fab md-mini" id="closeDialog">
+    <ng-md-icon icon="close" size="28"></ng-md-icon>
+  </md-button>
+  <md-toolbar class="md-tall" ng-show="playlist != false">
+    <div class="md-toolbar-tools">
+      <img ng-src="{{current.artwork_url}}" alt="" />
+      <div layout="row" class="data" layout-padding layput-margin flex>
+        <div layout="row" class="waveform" layout-align="start center">
+          <div>
+            <div porcent-width="{{progress}}"></div>
+            <img ng-src="{{current.waveform_url}}" alt="{{current.title}}" />
+          </div>
+        </div>
+        <div layout="column" flex layout-align="center center">
+          <h2 class="md-flex">{{current.title}}</h2>
+          <section flex layout="row" layout-align="center center">
+            <md-button aria-label="Anterior" ng-disabled="current.id == playlist.tracks[0].id" ng-click="previous()" class="md-fab md-mini md-accent">
+              <ng-md-icon icon="skip_previous" size="28"></ng-md-icon>
+            </md-button>
+            <md-button ng-click="playPause()" aria-label="Play/Pause" class="md-fab md-warn">
+              <ng-md-icon icon="{{(current.paused)?'play_arrow':'pause'}}" size="28"></ng-md-icon>
+            </md-button>
+            <md-button aria-label="Proximo" ng-disabled="current.id == playlist.tracks[playlist.tracks.length-1].id" ng-click="next()" class="md-fab md-mini  md-accent">
+              <ng-md-icon icon="skip_next" size="28"></ng-md-icon>
+            </md-button>
+          </section>
+        </div>
+        <div class="time" layout="column" layout-align="center end">
+          <span>{{formatTime(time)}}</span>
+        </div>
+      </div>
+    </div>
+  </md-toolbar>
+  <md-dialog-content ng-show="playlist == false">
+    <div layout="row" layout-padding layput-margin layout-sm="column" layout-align="space-around">
+      <md-progress-circular class="md-warn" md-mode="indeterminate"></md-progress-circular>
+    </div>
+  </md-dialog-content>
+  <md-dialog-content ng-show="playlist != false">
+    <md-list layout-padding>
+      <div ng-class="{'active': current.id == track.id}" ng-repeat="track in playlist.tracks">
+        <md-list-item ng-click="setCurrent(track)">
+          <img layout="column" layout-align="center start" alt="{{ track.title }}" ng-src="{{ track.artwork_url }}" class="md-avatar" />
+          <p layout="column" flex layout-align="center start">{{ track.title }}</p>
+          <p layout="column" layout-align="center end">{{formatTime(track.duration)}}</p>
+        </md-list-item>
+      </div>
+    </md-list>
+
+  </md-dialog-content>
 </md-dialog>

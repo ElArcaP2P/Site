@@ -1,1 +1,0 @@
-{ "options" : { "create" : "marker" }, "indexes" : [ { "v" : 1, "key" : { "_id" : 1 }, "ns" : "elarcap2p.marker", "name" : "_id_" } ] }
