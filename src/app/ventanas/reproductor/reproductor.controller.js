@@ -9,11 +9,14 @@ angular.module('elArcaP2P')
       })
       $scope.$on('PlayerSrv_changeCurrent',function(ev,_current){
         scope.current = _current;
+        if(!scope.$$phase)
+          scope.$apply();
       })
       $scope.$on('PlayerSrv_changeProgress',function(ev,progress){
         scope.time = Math.floor(scope.current.duration-progress);
         scope.progress = (progress*100)/scope.current.duration;
-        scope.$apply();
+        if(!scope.$$phase)
+          scope.$apply();
       })
       scope.closeDialog = function() {
         $mdDialog.hide();

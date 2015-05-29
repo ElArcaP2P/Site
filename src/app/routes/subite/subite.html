@@ -1,4 +1,7 @@
 <md-dialog id="subite" layout-padding aria-label="List dialog">
+  <md-button ng-click="closeDialog()" aria-label="Close" class="md-fab md-mini" id="closeDialog">
+    <ng-md-icon icon="close" size="28"></ng-md-icon>
+  </md-button>
   <form ng-submit="enviar()" ng-if="state == 'form'">
     <md-dialog-content>
       <div layout layout-sm="column">
@@ -39,8 +42,7 @@
       </div>
     </md-dialog-content>
     <div class="md-actions" layout="row">
-      <md-button ng-click="closeDialog($event)" class="md-raised">Cerrar</md-button>
-      <md-button type="submit" class="md-raised md-primary md-default-theme">Enviar</md-button>
+      <md-button type="submit" class="md-raised">Enviar</md-button>
     </div>
   </form>
   <md-dialog-content ng-if="state == 'enviando'">
@@ -71,12 +73,7 @@
   </div>
   <md-dialog-content ng-show="state == 'gracias'">
     <div class="gracias">
-      <div layout layout-sm="column">
-        <img src="http://2.bp.blogspot.com/-VxNPVSlfayI/U0sbnOEG50I/AAAAAAAAAoU/1ccYGlcdr6E/s1600/monkeydance.gif" alt="¡Like a Chango!" />
-      </div>
       <h2>¡Gracias!</h2>
+    </div>
   </md-dialog-content>
-  <div class="md-actions" layout="row" ng-if="state == 'gracias'" remove-parent-flex="md-dialog">
-    <md-button ng-click="closeDialog($event)" class="md-raised">Cerrar</md-button>
-  </div>
 </md-dialog>

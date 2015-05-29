@@ -1,4 +1,10 @@
 #subite {
+  overflow: visible;
+  #closeDialog {
+    position: absolute;
+    top: -27px;
+    right: -27px;
+  }
   #lugar {
     width: 100%;
     height: 150px;

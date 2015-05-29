@@ -23,9 +23,7 @@ angular.module('elArcaP2P')
       scope.init = function(){
         FB.XFBML.parse();
       }
-      scope.closeDialog = function(ev) {
-        ev.preventDefault();
-        ev.stopPropagation();
+      scope.closeDialog = function() {
         $mdDialog.hide();
       }
 
