@@ -1,48 +1,50 @@
-<md-dialog id="subite" layout-padding aria-label="List dialog">
+<md-dialog id="subite">
   <md-button ng-click="closeDialog()" aria-label="Close" class="md-fab md-mini" id="closeDialog">
     <ng-md-icon icon="close" size="28"></ng-md-icon>
   </md-button>
   <form ng-submit="enviar()" ng-if="state == 'form'">
     <md-dialog-content>
-      <div layout layout-sm="column">
-        <md-input-container flex>
-          <label>Tu nombre</label>
-          <input name="nombre" ng-model="form.nombre" autofocus>
-        </md-input-container>
-        <md-input-container flex>
-          <label>Email</label>
-          <input name="email" ng-model="form.email">
-        </md-input-container>
-      </div>
-      <div layout="column">
-        <md-input-container>
-          <label>Mensaje</label>
-          <textarea name="mensage" ng-model="form.mensage"></textarea>
-        </md-input-container>
-      </div>
-      <div class="lugar" layout="column">
-        <div layout="row">
+      <div>
+        <div layout layout-sm="column">
           <md-input-container flex>
-            <!-- Use floating label instead of placeholder -->
-            <label>Lugar</label>
-            <input name="lugar" ng-model="form.lugar" geocomplete>
+            <label>nombre</label>
+            <input name="nombre" ng-model="form.nombre" autofocus>
           </md-input-container>
-          <div class="my_location">
-            <md-button type="button" ng-click="getLocation()" class="md-raised md-button md-default-theme" aria-label="Tu Posicion">
-              <ng-md-icon icon="my_location" style="fill: rgb(96,125,139)" size="25"></ng-md-icon>
-            </md-button>
-            <md-tooltip md-direction="left">
-              Utilizá tu ubicación
-            </md-tooltip>
-          </div>
+          <md-input-container flex>
+            <label>email</label>
+            <input name="email" ng-model="form.email">
+          </md-input-container>
         </div>
-        <div layout="row" id="lugar" class="map" location config="location" ng-if="form.position">
+        <div layout="column">
+          <md-input-container>
+            <label>mensaje</label>
+            <textarea name="mensage" ng-model="form.mensage"></textarea>
+          </md-input-container>
+        </div>
+        <div class="lugar" layout="column">
+          <div layout="row">
+            <md-input-container flex>
+              <!-- Use floating label instead of placeholder -->
+              <label>¿donde estas?</label>
+              <input name="lugar" ng-model="form.lugar" geocomplete>
+            </md-input-container>
+            <div class="my_location">
+              <md-button type="button" ng-click="getLocation()" class="md-raised md-button md-default-theme" aria-label="Tu Posicion">
+                <ng-md-icon icon="my_location" style="fill: rgb(96,125,139)" size="25"></ng-md-icon>
+              </md-button>
+              <md-tooltip md-direction="left">
+                Tu ubicación
+              </md-tooltip>
+            </div>
+          </div>
+          <div layout="row" id="lugar" class="map" location config="location" ng-if="form.position">
 
+          </div>
         </div>
       </div>
     </md-dialog-content>
     <div class="md-actions" layout="row">
-      <md-button type="submit" class="md-raised">Enviar</md-button>
+      <md-button type="submit" class="md-raised md-primary">Enviar</md-button>
     </div>
   </form>
   <md-dialog-content ng-if="state == 'enviando'">
@@ -50,14 +52,14 @@
       <spinner></spinner>
     </div>
   </md-dialog-content>
-  <md-dialog-content ng-show="state == 'redes'">
+  <md-dialog-content ng-if="state == 'redes'">
     <p>
       Para estar en contacto con nosotros y ser parte del viajes
       <br> seguinos en <a href="//facebook.com/elarcap2p" target="_blank">Facebook</a>.
     </p>
-    <div layout="row" id="socialGracias" layout-align="center start" ng-init="init('socialGracias')">
+    <div layout="row" id="socialGracias" layout-align="center start">
       <div layout-padding>
-        <div class="fb-like" data-href="https://www.facebook.com/elarcap2p" data-layout="box_count" data-action="like" data-show-faces="true" data-share="true"></div>
+        <div fbml class="fb-like" data-href="https://www.facebook.com/elarcap2p" data-layout="box_count" data-action="like" data-show-faces="true" data-share="true"></div>
       </div>
       <div twitter layout-padding>
         <a class="twitter-share-button" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fdev.twitter.com%2Fweb%2Ftweet-button%3Fsrc%3Dtwitter" data-counturl="https://twitter.com/elarcap2p" data-count="vertical"></a>
@@ -73,6 +75,9 @@
   </div>
   <md-dialog-content ng-show="state == 'gracias'">
     <div class="gracias">
+      <div class="shake shake-little shake-constant">
+        <ng-md-icon icon="thumb_up" style="fill: rgba(0,255,0,.6)" size="60"></ng-md-icon>
+      </div>
       <h2>¡Gracias!</h2>
     </div>
   </md-dialog-content>

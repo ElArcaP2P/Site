@@ -3,6 +3,6 @@ bower_components/
 .sass-cache/
 .tmp/
 servicio/assets/
-Rutas/
+/Rutas/
 dump/
 Tasks/

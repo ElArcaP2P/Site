@@ -1,4 +1,5 @@
 'use strict';
+
 angular.module('elArcaP2P', [
     'ngAnimate',
     'ngCookies',
@@ -55,6 +56,12 @@ angular.module('elArcaP2P', [
         parent: 'map',
         templateUrl: 'app/map/empty.html',
         controller: 'ReproductorCtrl'
+      })
+      .state('post', {
+        url: 'post/:id',
+        parent: 'map',
+        templateUrl: 'app/map/empty.html',
+        controller: 'PostCtrl'
       });
 
     $urlRouterProvider.otherwise('/introduccion/');
@@ -63,3 +70,13 @@ angular.module('elArcaP2P', [
       .primaryPalette('grey')
       .accentPalette('blue-grey');
   });
+
+var waitFor = ['fb', 'tw', 'ig'];
+
+function ready(readyNow) {
+  waitFor.splice(waitFor.indexOf(readyNow),1);
+  if (waitFor.length == 0){
+    $('.cargando').remove();
+    angular.bootstrap(document, ['elArcaP2P']);
+  }
+}

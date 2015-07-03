@@ -1,0 +1,22 @@
+#post {
+  overflow: visible;
+  #closeDialog {
+    position: absolute;
+    top: -27px;
+    right: -27px;
+  }
+  md-dialog-content {
+    overflow: auto;
+    padding: 15px;
+    //width: 370px;
+    text-align: center;
+    iframe{
+      margin: auto!important;
+    }
+    .instagram-media{
+      width: 100%;
+      max-width: 400px;
+      margin: auto;
+    }
+  }
+}

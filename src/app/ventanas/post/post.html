@@ -1,0 +1,30 @@
+<md-dialog aria-label="Reproductor" id="post" flex>
+  <md-button ng-if="loading == false" ng-click="closeDialog()" aria-label="Close" class="md-fab md-mini" id="closeDialog">
+    <ng-md-icon icon="close" size="28"></ng-md-icon>
+  </md-button>
+  <md-dialog-content ng-show="loading == true">
+    <div layout="row" layout-padding layput-margin layout-sm="column" layout-align="space-around">
+      <md-progress-circular class="md-warn" md-mode="indeterminate"></md-progress-circular>
+    </div>
+  </md-dialog-content>
+  <md-dialog-content ng-show="loading == false" ng-if="href != false">
+
+    <div ng-if="remote_type=='fb'">
+      <div fbml class="fb-post" href="{{href}}" data-width="350">
+      </div>
+    </div>
+
+    <div ng-if="remote_type=='ig'">
+      <blockquote ig class="instagram-media" data-instgrm-captioned data-instgrm-version="4">
+        <a href="{{href}}"></a>
+      </blockquote>
+    </div>
+
+    <div ng-if="remote_type=='tw'">
+      <blockquote tw class="twitter-tweet" data-link-color="#55acee" lang="es">
+        <a href="{{href}}"></a>
+      </blockquote>
+    </div>
+
+  </md-dialog-content>
+</md-dialog>

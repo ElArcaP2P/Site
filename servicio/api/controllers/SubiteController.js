@@ -11,28 +11,17 @@ var mandrill = require('mandrill-api/mandrill'),
 
 module.exports = {
   index: function(req, res) {
-    var params = req.allParams(),
-      contacto = {};
+    var params = req.allParams();
 
-    if (params.position != false) {
-      contacto.geometry = {
-        type: 'Point',
-        coordinates: params.position
-      };
-      contacto.type = 'Feature';
-    }
+    params.ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
-    delete params.position;
-    contacto.properties = params;
-
-
-    Contacto.create(contacto).exec(function createCB(err, created) {
+    Contacto.create(params).exec(function createCB(err, created) {
       res.send();
       var message = {
         "text": JSON.stringify(created),
         "subject": "Contacto",
-        "from_email": (validator.isEmail(created.properties.email))?created.properties.email:'anonimo@cualquiera.ass',
-        "from_name": created.properties.nombre,
+        "from_email": (validator.isEmail(created.email)) ? created.email : 'anonimo@cualquiera.ass',
+        "from_name": created.nombre,
         "to": [{
           "email": "hola@elarcap2p.com",
           "name": "El Arcap2p",

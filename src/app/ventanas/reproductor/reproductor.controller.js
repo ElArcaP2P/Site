@@ -1,21 +1,30 @@
 'use strict';
 
 angular.module('elArcaP2P')
-  .controller('ReproductorCtrl', function($scope, $state, $mdDialog, $http, $templateCache, PlayerSrv) {
+  .controller('ReproductorCtrl', function($scope, $timeout, $state, $mdDialog, $http, $templateCache, PlayerSrv) {
 
     var ModalController = function(scope, $mdDialog) {
       $scope.$on('$stateChangeStart', function() {
         $mdDialog.hide();
       })
-      $scope.$on('PlayerSrv_changeCurrent',function(ev,_current){
+
+      function changeCurrent(ev, _current) {
         scope.current = _current;
-        if(!scope.$$phase)
-          scope.$apply();
-      })
-      $scope.$on('PlayerSrv_changeProgress',function(ev,progress){
-        scope.time = Math.floor(scope.current.duration-progress);
-        scope.progress = (progress*100)/scope.current.duration;
-        if(!scope.$$phase)
+        if (!$scope.$$phase)
+          scope.$apply()
+        else {
+          $timeout(function() {
+            changeCurrent(ev, _current)
+          },500);
+        }
+      }
+
+      $scope.$on('PlayerSrv_changeCurrent', changeCurrent);
+
+      $scope.$on('PlayerSrv_changeProgress', function(ev, progress) {
+        scope.time = Math.floor(scope.current.duration - progress);
+        scope.progress = (progress * 100) / scope.current.duration;
+        if (!$scope.$$phase)
           scope.$apply();
       })
       scope.closeDialog = function() {
@@ -41,7 +50,7 @@ angular.module('elArcaP2P')
       };
       scope.playlist = false;
       PlayerSrv.load('https://soundcloud.com/yan-adrover/sets/player-el-arcap2p').then(function(playlist) {
-        scope.setCurrent(PlayerSrv.getCurrent(),true);
+        scope.setCurrent(PlayerSrv.getCurrent(), true);
         scope.playlist = playlist;
       })
 

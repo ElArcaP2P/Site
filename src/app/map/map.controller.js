@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('elArcaP2P')
-  .controller('MapCtrl', function($scope, $state, RutasSrv, GeoLocation, Srv, State) {
+  .controller('MapCtrl', function($scope, $state, $compile, RutasSrv, GeoLocation, Srv, State) {
     var markers,
       geoJson,
       map = false,
@@ -11,56 +11,34 @@ angular.module('elArcaP2P')
           access_tocken: 'pk.eyJ1IjoibmFjYWx0IiwiYSI6InA1MXJqaDAifQ.-ijEh3Iqt1y34rIr5lbPOg',
           mapid: 'nacalt.fc0fff05',
           format: 'png32'
-        }),
-        'Hibrida': new L.Google('HYBRID'),
-        'Satelite': new L.Google('SATELLITE')
+        })
       };
 
+    if (window.google) {
+      layers.Hibrida = new L.Google('HYBRID');
+      layers.Satelite = new L.Google('SATELLITE');
+    }
+
     var icons = {
-      fecha: L.AwesomeMarkers.icon({
-        icon: 'fa-headphones',
+      photo: L.AwesomeMarkers.icon({
+        icon: 'fa-camera-retro',
         prefix: 'fa',
         markerColor: 'green'
       }),
-      hospedaje: L.AwesomeMarkers.icon({
-        icon: 'fa-bed',
-        prefix: 'fa',
-        markerColor: 'red'
-      }),
-      colaboracion_economica: L.AwesomeMarkers.icon({
-        icon: 'fa-money',
+      image: L.AwesomeMarkers.icon({
+        icon: 'fa-instagram',
         prefix: 'fa',
         markerColor: 'green'
       }),
-      colaboracion_creativa: L.AwesomeMarkers.icon({
-        icon: 'fa-heart',
-        prefix: 'fa',
-        markerColor: 'red'
-      }),
-      colaboracion_logistica: L.AwesomeMarkers.icon({
-        icon: 'fa-car',
-        prefix: 'fa',
-        markerColor: 'red'
-      }),
-      talleres_nacho: L.AwesomeMarkers.icon({
-        icon: 'fa-comment',
-        prefix: 'fa',
-        markerColor: 'cadetblue'
-      }),
-      media_texto: L.AwesomeMarkers.icon({
-        icon: 'fa-comment',
-        prefix: 'fa',
-        markerColor: 'cadetblue'
-      }),
-      media_imagen: L.AwesomeMarkers.icon({
-        icon: 'fa-camera',
-        prefix: 'fa',
-        markerColor: 'cadetblue'
-      }),
-      media_video: L.AwesomeMarkers.icon({
+      video: L.AwesomeMarkers.icon({
         icon: 'fa-video-camera',
         prefix: 'fa',
-        markerColor: 'cadetblue'
+        markerColor: 'green'
+      }),
+      tweet: L.AwesomeMarkers.icon({
+        icon: 'fa-twitter',
+        prefix: 'fa',
+        markerColor: 'green'
       })
     };
 
@@ -71,24 +49,35 @@ angular.module('elArcaP2P')
         var markers = L.markerClusterGroup();
         geoJson = L.geoJson(data, {
           onEachFeature: function(feature) {
-            var icon = feature.properties.tipo;
-            if (feature.properties.subtipo)
-              icon += '_' + feature.properties.subtipo;
-
+            var icon = feature.properties.type;
+            console.log('icon',icon);
             var marker = L.marker(feature.geometry.coordinates.reverse(), {
               icon: icons[icon]
-            }).addTo(markers);
+            }).addTo(markers).on('click', function(e) {
+              $state.go('post',{
+                id: feature.properties.id
+              })
+            });
 
-            if (feature.properties.nombre || false) {
-              marker.bindPopup(feature.properties.nombre);
-            };
+            /*if (feature.properties.href || false) {
+              var popup = L.popup({
+                maxWidth: 500,
+                minWidth: 350
+              }).setContent('<div fbml class="fb-post" data-href="' + feature.properties.href + '" data-width="300"></div>');
+              marker.bindPopup(popup);
+            };*/
           }
         });
         map.addLayer(markers);
         $scope.map.fitBounds(markers.getBounds());
       });
-      RutasSrv.getLayer().then(function(data, status) {
-        map.addLayer(data);
+      map.on('click', function(e) {
+        var marker = e.marker;
+      });
+      RutasSrv.getLayers().then(function(layers, status) {
+        layers.forEach(function(layer){
+          map.addLayer(layer);
+        });
       });
     }
 

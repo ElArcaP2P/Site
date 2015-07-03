@@ -3,12 +3,15 @@ angular.module('elArcaP2P')
     var self = {},
         geojson = false;
 
-    self.getLayer = function() {
+    self.getLayers = function() {
       var deferred = $q.defer();
       if(geojson == false){
-        Srv.getRutas().then(function(response) {
-          geojson = response.data;
-          deferred.resolve(L.geoJson(geojson));
+        Srv.getRutas().then(function(responses) {
+          var layers = [];
+          responses.forEach(function(response){
+            layers.push(L.geoJson(response.data));
+          })
+          deferred.resolve(layers);
         }, function() {
           deferred.reject.apply(arguments);
         });

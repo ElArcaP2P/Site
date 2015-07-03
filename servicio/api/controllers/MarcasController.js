@@ -6,15 +6,14 @@
  */
 
 module.exports = {
-	index: function(req,res){
-		var response = {
-			type: "FeatureCollection"
-		};
-		Marker.find({
-			visible: true
-		}).exec(function(err,markers){
-			response.features = markers;
-			res.send(response);
-		});
-	}
+  index: function(req, res) {
+    Feed.find().exec(function(err, feeds) {
+      res.geojson(feeds);
+    });
+  },
+  todas: function(req,res){
+    Feed.find().exec(function(err, feeds) {
+      res.send(feeds);
+    });
+  }
 };

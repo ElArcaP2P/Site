@@ -25,12 +25,18 @@
   }
   .gracias {
     text-align: center;
+    >div{
+      height: 80px;
+    }
   }
   .my_location{
     margin-top: 8px;
     margin-left: 5px;
     button{
       height: 38px;
+      ng-md-icon{
+
+      }
     }
   }
   .md-actions{

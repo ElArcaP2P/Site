@@ -1,5 +1,5 @@
 <md-dialog aria-label="Reproductor" id="reproductor">
-  <md-button ng-show="playlist != false" ng-click="closeDialog()" aria-label="Close" class="md-fab md-mini" id="closeDialog">
+  <md-button ng-if="playlist != false" ng-click="closeDialog()" aria-label="Close" class="md-fab md-mini" id="closeDialog">
     <ng-md-icon icon="close" size="28"></ng-md-icon>
   </md-button>
   <md-toolbar class="md-tall" ng-show="playlist != false">
@@ -15,13 +15,13 @@
         <div layout="column" flex layout-align="center center">
           <h2 class="md-flex">{{current.title}}</h2>
           <section flex layout="row" layout-align="center center">
-            <md-button aria-label="Anterior" ng-disabled="current.id == playlist.tracks[0].id" ng-click="previous()" class="md-fab md-mini md-accent">
+            <md-button aria-label="Anterior" ng-disabled="current.id == playlist.tracks[0].id" ng-click="previous()" class="md-fab md-mini md-accent md-hue-4">
               <ng-md-icon icon="skip_previous" size="28"></ng-md-icon>
             </md-button>
             <md-button ng-click="playPause()" aria-label="Play/Pause" class="md-fab md-warn">
               <ng-md-icon icon="{{(current.paused)?'play_arrow':'pause'}}" size="28"></ng-md-icon>
             </md-button>
-            <md-button aria-label="Proximo" ng-disabled="current.id == playlist.tracks[playlist.tracks.length-1].id" ng-click="next()" class="md-fab md-mini  md-accent">
+            <md-button aria-label="Proximo" ng-disabled="current.id == playlist.tracks[playlist.tracks.length-1].id" ng-click="next()" class="md-fab md-mini  md-accent md-hue-4">
               <ng-md-icon icon="skip_next" size="28"></ng-md-icon>
             </md-button>
           </section>

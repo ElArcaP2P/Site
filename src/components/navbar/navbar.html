@@ -1,20 +1,24 @@
 <md-toolbar id="navbar">
   <div class="md-toolbar-tools">
-    <h2>El Arcap2p</h2>
-    <span flex layout="row" layout-align="center center">
+    <div class="logo" layout="row" layout-align="center center">
+    </div>
+    <div flex layout="row" layout-align="center center">
+      <h2><b>AR</b>rte <b>C</b>onectando <b>A</b>lmas</h2>
+    </div>
+    <div  layout="row"  class="menu" layout-align="start center">
       <md-tooltip>
-        ¡Se parte del Arca!
+        ¿Que? ¿Quienes?<br>¿Por qué?<br>¿Como?
+      </md-tooltip>
+      <md-button class="help md-raised md-fab md-mini" ui-sref="acerca_de" aria-label="Acerca de">
+        ¿?
+      </md-button>
+    </div>
+    <div layout="row" layout-align="center center">
+      <md-tooltip>
+        Se parte del Arca
       </md-tooltip>
       <md-button class="md-raised" ui-sref="subite" aria-label="¡Subite!">
         ¡Subite!
-      </md-button>
-    </span>
-    <div class="menu" layout-align="start center">
-      <md-tooltip>
-        ¿Que? ¿Quienes?
-      </md-tooltip>
-      <md-button class="md-raised" ui-sref="acerca_de" aria-label="Acerca de" ui-sref="acerca_de">
-        Acerca de
       </md-button>
     </div>
   </div>

@@ -9,9 +9,11 @@ angular.module('elArcaP2P')
     function progress() {
       current.progress = player[0].currentTime * 1000;
       $rootScope.$broadcast('PlayerSrv_changeProgress', current.progress);
+      return true;
     }
 
-    player.on('progress', progress);
+    player.on('timeupdate', progress);
+    player.on('ended', next);
 
     function getState() {
       return playerState;

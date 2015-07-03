@@ -4,6 +4,11 @@
   position: absolute;
   top: 0;
   right: 0;
+  .slides{
+    &:first-child{
+      background: none;
+    }
+  }
   .reveal {
     * {
       font-family: 'Special Elite', cursive !important;
