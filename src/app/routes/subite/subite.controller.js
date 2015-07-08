@@ -1,6 +1,6 @@
 'use strict';
 angular.module('elArcaP2P')
-  .controller('SubiteCtrl', function($scope, $state, $stateParams, $facebook, $mdToast, $mdDialog, $http, $location, $templateCache, GeoLocation, Srv) {
+  .controller('SubiteCtrl', function($scope, $state, $stateParams, $mdToast, $mdDialog, $http, $location, $templateCache, GeoLocation, Srv) {
     $http({
       method: 'GET',
       url: 'app/routes/subite/subite.html',

@@ -25,7 +25,7 @@ angular.module('elArcaP2P')
         })
       };
 
-      var routes = [1,2],
+      var routes = [1,2,3],
         promises = [];
       routes.forEach(function(route_id){
         promises.push(getRoute(route_id));

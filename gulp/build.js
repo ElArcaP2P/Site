@@ -71,6 +71,13 @@ module.exports = function(options) {
       .pipe(gulp.dest(options.dist + '/fonts/'));
   });
 
+  gulp.task('images_leaflet', function () {
+    return gulp.src([
+      'bower_components/leaflet/dist/images/*'
+    ])
+      .pipe(gulp.dest(options.dist + '/styles/images/'));
+  });
+
   gulp.task('other', function () {
     return gulp.src([
       options.src + '/**/*',
@@ -83,5 +90,5 @@ module.exports = function(options) {
     $.del([options.dist + '/', options.tmp + '/'], done);
   });
 
-  gulp.task('build', ['html', 'fonts', 'other']);
+  gulp.task('build', ['html', 'fonts', 'other', 'images_leaflet']);
 };

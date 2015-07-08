@@ -40,5 +40,11 @@ ng-md-icon {
     display: block;
   }
 }
+#btn-player{
+  svg{
+    position: relative;
+    top: -1px;
+  }
+}
 // injector
 // endinjector
