@@ -1,0 +1,1 @@
+{ "options" : { "create" : "contacto" }, "indexes" : [ { "v" : 1, "key" : { "_id" : 1 }, "ns" : "elarcap2p.contacto", "name" : "_id_" } ] }
